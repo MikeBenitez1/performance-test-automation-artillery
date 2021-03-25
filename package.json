@@ -1,0 +1,15 @@
+{
+  "name": "performance-test-automation-artillery",
+  "version": "1.0.0",
+  "description": "performance automation with artillery",
+  "main": "index.js",
+  "scripts": {
+    "test": "artillery run -k --output results/report.json performance.yml && artillery report --output results/reports.html results/report.json"
+  },
+  "author": "Mike Benitez",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "^1.6.2"
+  }
+}
+
