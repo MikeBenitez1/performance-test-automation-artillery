@@ -8,11 +8,15 @@ config:
     headers:
       Authorization: Bearer {{ $processEnvironment.TOKEN }}
       Content-type: application/json
-  #processor: "./myProcessor.js"
+
+
 scenarios:
   - flow:
+      #Get active tasks
       - get:
           url: "/rest/v1/tasks"
+      
+      #Create a new task
       - post:
           url: "/rest/v1/tasks"
           json:
@@ -21,20 +25,30 @@ scenarios:
            json: "$.id"
            as: "id"
       - log: "id of new created task is {{ id }}"
+
+      #Get an active task
       - get:
           url: "/rest/v1/tasks/{{ id }}"
           capture:
            json: "$.id"
            as: "id"
       - log: "Current id is {{ id }}"
+
+      #Update a task
       - post:
           url: "/rest/v1/tasks/{{ id }}"
           json:
            content: "Buy Coffee"
+
+      #Complete a task
       - post:
           url: "/rest/v1/tasks/{{ id }}/close"
+
+      #Reopen a task
       - post:
           url: "/rest/v1/tasks/{{ id }}/reopen"
+
+      #Delete a task
       - delete:
           url: "/rest/v1/tasks/{{ id }}"
           
